@@ -28,6 +28,7 @@ RUN apt-get clean && \
 
 RUN rm -f /etc/service/sshd/down \
     && /etc/my_init.d/00_regen_ssh_host_keys.sh
+RUN echo 'root:root' | chpasswd
     
 ENV LC_ALL en_US.UTF-8
 ENV TZ Asia/Ho_Chi_Minh
