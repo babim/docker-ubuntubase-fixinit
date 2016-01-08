@@ -33,4 +33,6 @@ RUN echo 'root:root' | chpasswd
 ENV LC_ALL en_US.UTF-8
 ENV TZ Asia/Ho_Chi_Minh
 
+EXPOSE 22
+
 CMD ["/sbin/my_init"]
