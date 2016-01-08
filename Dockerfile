@@ -18,6 +18,9 @@ RUN dpkg-reconfigure locales && \
     locale-gen en_US.UTF-8 && \
     update-locale LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
 
+RUN rm -f /etc/service/sshd/down \
+    && /etc/my_init.d/00_regen_ssh_host_keys.sh
+    
 RUN apt-get clean && \
     apt-get autoclean && \
     apt-get autoremove -y && \
