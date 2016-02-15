@@ -25,7 +25,7 @@ RUN apt-get clean && \
     rm -f /etc/dpkg/dpkg.cfg.d/02apt-speedup
 
 RUN rm -f /etc/service/sshd/down \
-    && /etc/my_init.d/00_regen_ssh_host_keys.sh
+    && /etc/my_init.d/00_regen_ssh_host_keys.sh && chown root:root /var/run/sshd
 RUN echo 'root:root' | chpasswd
     
 ENV LC_ALL en_US.UTF-8
