@@ -1,4 +1,4 @@
-FROM phusion/baseimage
+FROM jedisct1/phusion-baseimage-latest:16.04
 
 MAINTAINER "Duc Anh Babim" <ducanh.babim@yahoo.com>
 
