@@ -3,35 +3,15 @@ FROM phusion/baseimage
 # ----------
 MAINTAINER babim <babim@matmagoc.com>
 
-RUN rm -f /etc/motd && \
-    echo "---" > /etc/motd && \
-    echo "Support by Duc Anh Babim. Contact: babim@matmagoc.com" >> /etc/motd && \
-    echo "---" >> /etc/motd && \
-    touch "/(C) Babim"
+RUN apt-get update && apt-get install bash curl -y 
 
-RUN apt-get update && apt-get install -y locales wget nano
-
-RUN dpkg-reconfigure locales && \
-    locale-gen en_US.UTF-8 && \
-    update-locale LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
-
-RUN apt-get clean && \
-    apt-get autoclean && \
-    apt-get autoremove -y && \
-    rm -rf /build && \
-    rm -rf /tmp/* /var/tmp/* && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -f /etc/dpkg/dpkg.cfg.d/02apt-speedup
+# copyright and timezone
+RUN bash <(curl -s https://raw.githubusercontent.com/babim/docker-tag-options/master/z%20SCRIPT%20AUTO/copyright.sh)
 
 RUN rm -f /etc/service/sshd/down \
     && /etc/my_init.d/00_regen_ssh_host_keys.sh && chown root:root /var/run/sshd
 RUN echo 'root:root' | chpasswd
 RUN chown root:root /var/run/sshd
-    
-ENV LC_ALL en_US.UTF-8
-# Set timezone to VN
-ENV TZ Asia/Ho_Chi_Minh
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 EXPOSE 22
 
